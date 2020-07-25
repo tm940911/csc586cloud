@@ -21,6 +21,7 @@ for i in range(2):
     node.addService(pg.Execute(shell="/bin/sh", command="sudo apt-get install -y apache2"))
     node.addService(pg.Execute(shell="/bin/sh", command="sudo apt-get install geoip-bin"))
     node.addService(pg.Execute(shell="/bin/sh", command="sudo apt-get install -y nfs-common"))
+    node.addService(pg.Execute(shell="/bin/sh", command="chmod +x /local/repository/scan.sh"))
   else:
     node = request.XenVM("observer")
     node.routable_control_ip = "false"
@@ -29,6 +30,7 @@ for i in range(2):
     node.addService(pg.Execute(shell="/bin/sh", command="sudo chown nobody:nogroup /var/webserver_monitor"))
     node.addService(pg.Execute(shell="/bin/sh", command="sudo apt-get install -y nfs-kernel-server"))
   node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"
+  node.addService(pg.Execute(shell="/bin/sh", command="chmod +x /local/repository/monitor.sh"))
   iface = node.addInterface("if" + str(i))
   iface.component_id = "eth1"
   iface.addAddress(pg.IPv4Address(prefixForIP + str(i + 1), "255.255.255.0"))
