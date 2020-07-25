@@ -16,9 +16,11 @@ for i in range(2):
   if i == 0:
     node = request.XenVM("webserver")
     node.routable_control_ip = "true"
+    node.addService(rspec.Execute(shell="/bin/sh", command="sudo mkdir -p /var/webserver_log"))
  else:
     node = request.XenVM("observer")
     node.routable_control_ip = "false"
+    node.addService(rspec.Execute(shell="/bin/sh", command="sudo mkdir -p /var/webserver_monitor"))
   node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"
   iface = node.addInterface("if" + str(i))
   iface.component_id = "eth1"
