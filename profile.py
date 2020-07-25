@@ -17,7 +17,7 @@ for i in range(2):
     node = request.XenVM("webserver")
     node.routable_control_ip = "true"
     node.addService(rspec.Execute(shell="/bin/sh", command="sudo mkdir -p /var/webserver_log"))
- else:
+  else:
     node = request.XenVM("observer")
     node.routable_control_ip = "false"
     node.addService(rspec.Execute(shell="/bin/sh", command="sudo mkdir -p /var/webserver_monitor"))
