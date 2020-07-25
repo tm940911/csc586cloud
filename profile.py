@@ -16,10 +16,14 @@ for i in range(2):
   if i == 0:
     node = request.XenVM("webserver")
     node.routable_control_ip = "true"
+    node.addService(pg.Execute(shell="/bin/sh", command="sudo apt-get update"))
     node.addService(pg.Execute(shell="/bin/sh", command="sudo mkdir -p /var/webserver_log"))
+    node.addService(pg.Execute(shell="/bin/sh", command="sudo apt-get install -y apache2"))
+    node.addService(pg.Execute(shell="/bin/sh", command="sudo apt-get install geoip-bin"))
   else:
     node = request.XenVM("observer")
     node.routable_control_ip = "false"
+    node.addService(pg.Execute(shell="/bin/sh", command="sudo apt-get update"))
     node.addService(pg.Execute(shell="/bin/sh", command="sudo mkdir -p /var/webserver_monitor"))
   node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"
   iface = node.addInterface("if" + str(i))
