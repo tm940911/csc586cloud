@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
 new_access=`sudo cat /var/webserver_monitor/unauthorized.log | grep -E "$(date -d '-1 hour' +'%b %d %H')"`
 
 if [ -z "$new_access" ]; then
